@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.MuiAccordionSummary-content {
+    margin: 0 !important;
+}
