@@ -1,9 +1,9 @@
-function page() {
+function Page() {
     return (
         <>
-            page
+            Page
         </>
     );
 }
 
-export default page;
+export default Page;

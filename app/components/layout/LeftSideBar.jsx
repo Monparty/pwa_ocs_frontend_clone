@@ -40,7 +40,7 @@ function LeftSideBar() {
         },
         {
             title: "Report",
-            path: "/",
+            path: "/dashboard",
             icon: <InsertDriveFileOutlinedIcon />,
         },
         {
