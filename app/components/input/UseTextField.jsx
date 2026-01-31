@@ -19,6 +19,7 @@ function UseTextField({ control, label = "", name, disabled = false, required = 
                             autoComplete: "off",
                         },
                     }}
+                    className="w-full"
                 />
             )}
         />

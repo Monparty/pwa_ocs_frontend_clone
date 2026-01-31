@@ -19,6 +19,7 @@ function UseNumberField({
                 <TextField
                     {...field}
                     label={label}
+                    className="w-full"
                     type="number"
                     size="small"
                     minRows={10}

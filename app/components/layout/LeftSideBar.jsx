@@ -16,43 +16,43 @@ function LeftSideBar() {
         {
             title: "ข้อมูลพื้นฐาน",
             path: "/",
-            icon: <GridViewIcon />,
+            icon: <GridViewIcon fontSize="small" />,
         },
         {
             title: "แผน",
             path: "/",
-            icon: <ListAltIcon />,
+            icon: <ListAltIcon fontSize="small" />,
         },
         {
             title: "ข้อมูลพื้นฐานกระบวนการผลิต",
             path: "/",
-            icon: <FolderOutlinedIcon />,
+            icon: <FolderOutlinedIcon fontSize="small" />,
         },
         {
             title: "จัดการเวลาปฏิบัติงาน",
             path: "/",
-            icon: <CalendarMonthOutlinedIcon />,
+            icon: <CalendarMonthOutlinedIcon fontSize="small" />,
         },
         {
             title: "บันทึกผลปฏิบัติงาน(ประจำวัน) Website",
             path: "/",
-            icon: <SaveOutlinedIcon />,
+            icon: <SaveOutlinedIcon fontSize="small" />,
         },
         {
             title: "Report",
             path: "/dashboard",
-            icon: <InsertDriveFileOutlinedIcon />,
+            icon: <InsertDriveFileOutlinedIcon fontSize="small" />,
         },
         {
             title: "Authentication",
             path: "/",
-            icon: <SettingsOutlinedIcon />,
+            icon: <SettingsOutlinedIcon fontSize="small" />,
         },
     ];
 
     return (
-        <div className="hidden md:block w-15 bg-white h-[calc(100dvh-3rem)] hover:w-60 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all">
-            <div className="flex flex-col w-full p-2">
+        <div className="hidden md:block w-15 bg-white h-[calc(100dvh-3rem)] hover:w-64 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all">
+            <div className="flex flex-col w-full p-3">
                 {menus.map((item, index) => (
                     <div key={index} className="w-full overflow-hidden">
                         <div className="w-48">
@@ -67,7 +67,7 @@ function LeftSideBar() {
                                     </div>
                                 </AccordionSummary>
                                 <AccordionDetails className="m-0! py-0! rounded-none!">
-                                    <div className="flex flex-col gap-1 border-l ms-1 border-gray-300 pl-5">
+                                    <div className="flex flex-col gap-1 border-l ms-0.5 border-gray-300 pl-5">
                                         {[1, 2, 3, 4, 5].map((arr) => (
                                             <>
                                                 <Link key={arr} href={item.path}>
