@@ -1,8 +1,9 @@
 "use client";
 import { useForm } from "react-hook-form";
-import UseTextField from "../components/input/UseTextField";
-import UseNumberField from "../components/input/UseNumberField";
-import UseSelect from "../components/input/UseSelect";
+import UseTextField from "../components/inputs/UseTextField";
+import UseNumberField from "../components/inputs/UseNumberField";
+import UseSelect from "../components/inputs/UseSelect";
+import UseButton from "../components/inputs/UseButton";
 
 function FormTest() {
     const {
@@ -15,6 +16,11 @@ function FormTest() {
     const onSubmit = (data) => console.log(data);
 
     console.log(watch());
+
+    const testBtn = () => {
+        alert(123);
+    };
+
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)} className="flex gap-2">
@@ -39,6 +45,7 @@ function FormTest() {
                         },
                     ]}
                 />
+                <UseButton onClick={testBtn} label={"monza"} />
             </form>
         </div>
     );

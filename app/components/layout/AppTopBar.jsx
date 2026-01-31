@@ -42,9 +42,7 @@ function AppTopBar() {
                     <Image src={logo} unoptimized alt="banner" fill className="object-cover" />
                 </div>
                 <h1 className="text-white font-medium text-lg">PWA</h1>
-                <h2 className="text-xs text-white px-2 py-0.5 rounded-xl flex items-center border border-blue-100">
-                    ระบบควบคุมกระบวนการผลิตน้ําประปา (OCS)
-                </h2>
+                <h2 className="text-white font-medium text-md">ระบบควบคุมกระบวนการผลิตน้ําประปา (OCS)</h2>
             </div>
             <div className="flex items-center gap-2">
                 <Tooltip title="คู่มือการใช้งาน" enterDelay={500} onClick={handleOpenManualModal}>
