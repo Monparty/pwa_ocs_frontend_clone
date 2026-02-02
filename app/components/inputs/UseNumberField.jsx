@@ -1,5 +1,6 @@
 import { Controller } from "react-hook-form";
 import { TextField } from "@mui/material";
+import UseHelperText from "./UseHelperText";
 
 function UseNumberField({
     control,
@@ -15,26 +16,30 @@ function UseNumberField({
         <Controller
             name={name}
             control={control}
-            render={({ field }) => (
-                <TextField
-                    {...field}
-                    label={label}
-                    className="w-full"
-                    type="number"
-                    size="small"
-                    minRows={10}
-                    disabled={disabled}
-                    required={required}
-                    slotProps={{
-                        htmlInput: {
-                            min: min,
-                            max: max,
-                            step: step ? 0.01 : undefined,
-                            inputMode: "numeric",
-                            autoComplete: "off",
-                        },
-                    }}
-                />
+            render={({ field, fieldState: { error } }) => (
+                <div className="grid w-full relative">
+                    <TextField
+                        {...field}
+                        label={label}
+                        type="number"
+                        size="small"
+                        className="w-full"
+                        minRows={10}
+                        disabled={disabled}
+                        required={required}
+                        error={!!error}
+                        slotProps={{
+                            htmlInput: {
+                                min: min,
+                                max: max,
+                                step: step ? 0.01 : undefined,
+                                inputMode: "numeric",
+                                autoComplete: "off",
+                            },
+                        }}
+                    />
+                    {error && <UseHelperText errorMessage={error.message} />}
+                </div>
             )}
         />
     );

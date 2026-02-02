@@ -4,7 +4,9 @@ import FormTest from './FormTest'
 function Page() {
   return (
     <div>
-      dashboard
+      <div className='mb-2'>
+        dashboard
+      </div>
       <FormTest />
       <div className='w-2 h-dvh bg-amber-200'></div>
     </div>

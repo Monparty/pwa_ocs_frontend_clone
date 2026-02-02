@@ -4,28 +4,31 @@ import UseTextField from "../components/inputs/UseTextField";
 import UseNumberField from "../components/inputs/UseNumberField";
 import UseSelect from "../components/inputs/UseSelect";
 import UseButton from "../components/inputs/UseButton";
+import { schema } from "./schema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import SaveIcon from '@mui/icons-material/Save';
 
 function FormTest() {
     const {
         handleSubmit,
         watch,
         control,
-        formState: { errors },
-    } = useForm();
+    } = useForm({
+        resolver: yupResolver(schema),
+        mode: "onBlur",
+    });
 
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) => {
+        console.log("data submit",data);
+    }
 
     console.log(watch());
 
-    const testBtn = () => {
-        alert(123);
-    };
-
     return (
         <div>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex gap-2">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex items-center gap-2">
                 <UseTextField control={control} name="name" label="name" />
-                <UseNumberField control={control} name="age" label="age" min={10} max={15} step />
+                <UseNumberField control={control} name="age" label="age" min={0} max={15} step />
                 <UseSelect
                     control={control}
                     name="gender"
@@ -45,7 +48,7 @@ function FormTest() {
                         },
                     ]}
                 />
-                <UseButton onClick={testBtn} label={"monza"} />
+                <UseButton type="submit" icon={SaveIcon} label="save" />
             </form>
         </div>
     );
