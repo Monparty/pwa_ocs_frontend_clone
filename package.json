@@ -14,6 +14,8 @@
     "@hookform/resolvers": "^5.2.2",
     "@mui/icons-material": "^7.3.7",
     "@mui/material": "^7.3.7",
+    "@mui/x-data-grid": "^8.0.0",
+    "@supabase/supabase-js": "^2.94.0",
     "dayjs": "^1.11.19",
     "next": "16.1.4",
     "react": "19.2.3",
