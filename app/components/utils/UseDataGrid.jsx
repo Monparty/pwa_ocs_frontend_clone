@@ -1,40 +1,40 @@
 import { DataGrid } from "@mui/x-data-grid";
 
-function UseDataGrid({ rows = [], columns = [], checkboxSelection = false }) {
+function UseDataGrid({
+    rows = [],
+    columns = [],
+    checkboxSelection = false,
+    onRowSelectionModelChange,
+    zebra = false,
+    showToolbar = false,
+    disableColumnMenu = false,
+}) {
     /*
-        renderCell: (params) => {
-            params.value = ค่าของ field นั้นใน row
-            params.row   = ทั้งแถว
-            params.field = ชื่อ column
-        }
-
-        ใส่ columnVisibilityModel={{ age: false }} ใน component เพื่อ ซ่อน column
-
-        ใส่ flex: 1 ใน columns เพื่อกำหนดความกว้าง
-
-        ใส่ editable: true ใน columns เพื่อแก้ไข cell
-
-        ใส่ sortable: false ใน columns เพื่อปิด sort
+        - ใช่ renderCell
+            renderCell: (params) => {
+                params.value = ค่าของ field นั้นใน row
+                params.row   = ทั้งแถว
+                params.field = ชื่อ column
+            }
+        - ใส่ columnVisibilityModel={{ age: false }} ใน component เพื่อ ซ่อน column
+        - ใส่ flex: 1 ใน columns เพื่อกำหนดความกว้าง
+        - ใส่ editable: true ใน columns เพื่อแก้ไข cell
+        - ใส่ sortable: false ใน columns เพื่อปิด sort
     */
     return (
-        <div style={{ height: 500, width: "100%" }}>
+        <div style={{ height: "100%", width: "100%" }}>
             <DataGrid
                 rows={rows}
                 columns={columns}
-                checkboxSelection={checkboxSelection}
+                checkboxSelection={checkboxSelection} // ใช้แสดง checkbox
                 onRowSelectionModelChange={(ids) => {
-                    const selectedIds = Array.from(ids.ids);
-                    const selectedRowsData = selectedIds.map((id) => rows.find((row) => row.id === id)).filter(Boolean);
-
-                    // console.log("selectedIds", selectedIds);
-                    // console.log("selectedRowsData", selectedRowsData);
+                    // ใช้ return ค่า checkbox ที่เลือก
+                    const selectedIds = Array.from(ids.ids); // ids
+                    const selectedRowsData = selectedIds.map((id) => rows.find((row) => row.id === id)).filter(Boolean); // rowData
+                    if (typeof onRowSelectionModelChange === "function") {
+                        onRowSelectionModelChange(selectedIds, selectedRowsData);
+                    }
                 }}
-                // pageSizeOptions={[5, 10, 20, 30]}
-                // initialState={{
-                //     pagination: {
-                //         paginationModel: { page: 0, pageSize: 5 },
-                //     },
-                // }}
                 // แก้ text เป็นภาษาไทย
                 localeText={{
                     paginationDisplayedRows: ({ from, to, count }) =>
@@ -49,6 +49,25 @@ function UseDataGrid({ rows = [], columns = [], checkboxSelection = false }) {
                     noColumnsOverlayLabel: "ไม่มีข้อมูล",
                     noColumnsOverlayManageColumns: "จัดการ column",
                 }}
+                getRowClassName={(params) =>
+                    zebra ? (params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd") : null
+                }
+                sx={{
+                    "& .even": {
+                        backgroundColor: "#f8f9f9",
+                    },
+                    "& .odd": {
+                        backgroundColor: "#ffffff",
+                    },
+                }}
+                showToolbar={showToolbar}
+                disableColumnMenu={disableColumnMenu} // เปิด/ปิด เมนูหัว column
+                // pageSizeOptions={[5, 10, 20, 30]}
+                // initialState={{
+                //     pagination: {
+                //         paginationModel: { page: 0, pageSize: 5 },
+                //     },
+                // }}
             />
         </div>
     );

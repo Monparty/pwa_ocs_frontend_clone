@@ -34,6 +34,19 @@ function FormTest() {
         console.log("data submit", data);
     };
 
+    const columns = [
+        { field: "name", headerName: "Product Name", flex: 1, editable: true },
+        {
+            field: "description",
+            headerName: "Description",
+            flex: 1,
+            sortable: false,
+            renderCell: (params) => {
+                return params.value;
+            },
+        },
+    ];
+
     const rows = [
         { id: 1, name: "Data Grid", description: "the Community version" },
         { id: 2, name: "Data Grid Pro", description: "the Pro version" },
@@ -48,25 +61,12 @@ function FormTest() {
         { id: 11, name: "Data Grid Premium", description: "the Premium version" },
     ];
 
-    const columns = [
-        { field: "name", headerName: "Product Name", flex: 1, editable: true },
-        {
-            field: "description",
-            headerName: "Description",
-            flex: 1,
-            sortable: false,
-            renderCell: (params) => {
-                return params.value;
-            },
-        },
-    ];
-
     // console.log(watch());
 
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="flex items-center gap-2 mb-4">
+                <div className="flex items-center gap-2 mb-6">
                     <UseTextField control={control} name="name" label="name" />
                     <UseNumberField control={control} name="age" label="age" min={0} max={15} step />
                     <UseSelect
@@ -90,7 +90,17 @@ function FormTest() {
                     />
                     <UseButton type="submit" icon={SaveIcon} label="save" />
                 </div>
-                <UseDataGrid rows={rows} columns={columns} />
+                <div className="h-125">
+                    <UseDataGrid
+                        rows={rows}
+                        columns={columns}
+                        checkboxSelection={true}
+                        onRowSelectionModelChange={(ids, rowData) => {
+                            console.log("ids", ids);
+                            console.log("rowData", rowData);
+                        }}
+                    />
+                </div>
             </form>
         </div>
     );
