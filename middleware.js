@@ -28,18 +28,13 @@ export async function middleware(request) {
     const isProtectedRoute = pathname.startsWith("/dashboard");
     const isRootRoute = pathname === "/";
 
-    // เข้าเว็บครั้งแรก (/) แล้วยังไม่ login → ไป login
-    if (!user && isRootRoute) {
+    // ยังไม่ login → ไป login
+    if (!user && (isRootRoute || isProtectedRoute)) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
 
-    // ยังไม่ login จะเข้า dashboard ไม่ได้
-    if (!user && isProtectedRoute) {
-        return NextResponse.redirect(new URL("/login", request.url));
-    }
-
-    // login แล้วจะเข้า login ไม่ได้
-    if (user && isAuthRoute) {
+    // login แล้ว → ไป dashboard
+    if (user && (isRootRoute || isAuthRoute)) {
         return NextResponse.redirect(new URL("/dashboard", request.url));
     }
 
