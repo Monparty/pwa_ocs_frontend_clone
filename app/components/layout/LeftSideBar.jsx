@@ -13,9 +13,29 @@ import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutl
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useEffect, useState } from "react";
 import { getMenus } from "../../services/menu.service";
+import * as MuiIcons from "@mui/icons-material";
 
 function LeftSideBar() {
     const [menuList, setMenuList] = useState([]);
+
+    const groupMenus = (menus) => {
+        const map = new Map();
+        const roots = [];
+
+        menus.forEach((m) => {
+            map.set(m.id, { ...m, children: [] });
+        });
+
+        menus.forEach((m) => {
+            if (m.parent_id) {
+                map.get(m.parent_id)?.children.push(map.get(m.id));
+            } else {
+                roots.push(map.get(m.id));
+            }
+        });
+
+        return roots;
+    };
 
     useEffect(() => {
         const onGetmenu = async () => {
@@ -24,12 +44,13 @@ function LeftSideBar() {
                 alert(error.message);
                 return;
             }
-            setMenuList(data);
+
+            setMenuList(groupMenus(data));
         };
         onGetmenu();
     }, []);
 
-    console.log("menuList", menuList);
+    // console.log("menuList", menuList);
 
     const menus = [
         {
@@ -72,34 +93,39 @@ function LeftSideBar() {
     return (
         <div className="hidden md:block w-15 bg-white h-[calc(100dvh-3rem)] hover:w-64 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all">
             <div className="flex flex-col w-full p-3">
-                {menus.map((item, index) => (
-                    <div key={index} className="w-full overflow-hidden">
-                        <div className="w-48">
-                            <Accordion className="m-0! rounded-none! bg-white! shadow-none! w-full">
-                                <AccordionSummary
-                                    className="m-0! mb-2! p-2! min-h-10! hover:bg-gray-100! rounded-md!"
-                                    expandIcon={<ExpandMoreIcon />}
-                                >
-                                    <div className="text-sm whitespace-nowrap rounded-md gap-3 flex items-center">
-                                        {item.icon}
-                                        <div className="truncate w-26 overflow-hidden">{item.title}</div>
-                                    </div>
-                                </AccordionSummary>
-                                <AccordionDetails className="m-0! py-0! rounded-none!">
-                                    <div className="flex flex-col gap-1 border-l ms-0.5 border-gray-300 pl-5">
-                                        {[1, 2, 3, 4, 5].map((arr) => (
-                                            <Link key={arr} href={item.path}>
-                                                <div className="hover:bg-gray-100 text-sm rounded-sm px-2 py-1">
-                                                    menu {arr}
-                                                </div>
-                                            </Link>
-                                        ))}
-                                    </div>
-                                </AccordionDetails>
-                            </Accordion>
+                {menuList.map((menu, index) => {
+                    const Icon = MuiIcons[menu.icon];
+                    return (
+                        <div key={index} className="w-full overflow-hidden">
+                            <div className="w-48">
+                                <Accordion className="m-0! rounded-none! bg-white! shadow-none! w-full">
+                                    <AccordionSummary
+                                        className="m-0! mb-2! p-2! min-h-10! hover:bg-gray-100! rounded-md!"
+                                        expandIcon={menu.path === null && <ExpandMoreIcon />}
+                                    >
+                                        <Link href={menu.path || ""}>
+                                            <div className="text-sm whitespace-nowrap rounded-md gap-3 flex items-center">
+                                                {Icon ? <Icon fontSize="small" /> : null}
+                                                <div className="truncate w-26 overflow-hidden">{menu.title}</div>
+                                            </div>
+                                        </Link>
+                                    </AccordionSummary>
+                                    <AccordionDetails className="m-0! py-0! rounded-none!">
+                                        <div className="flex flex-col gap-2 border-l ms-0.5 border-gray-300 pl-5">
+                                            {menu?.children?.map((subMenu, subIndex) => (
+                                                <Link key={subIndex} href={subMenu.path}>
+                                                    <div className="hover:bg-gray-100 text-sm rounded-sm px-2 py-2 truncate w-36 overflow-hidden">
+                                                        {subMenu.title}
+                                                    </div>
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </AccordionDetails>
+                                </Accordion>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
         </div>
     );

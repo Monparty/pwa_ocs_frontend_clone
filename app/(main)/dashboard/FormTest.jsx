@@ -29,11 +29,12 @@ function FormTest() {
     };
 
     const columns = [
-        { field: "name", headerName: "Product Name", flex: 1, editable: true },
+        { field: "name", headerName: "Product Name", width: 200, editable: true },
         {
             field: "description",
             headerName: "Description",
-            flex: 1,
+            // flex: 1,
+            width: 200,
             sortable: false,
             renderCell: (params) => {
                 return params.value;
