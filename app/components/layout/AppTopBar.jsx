@@ -11,6 +11,8 @@ import { Menu, MenuItem, Tooltip } from "@mui/material";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import UseModal from "../utils/UseModal";
+import { useRouter } from "next/navigation";
+import { logout } from "@/app/lib/auth";
 
 function AppTopBar() {
     const [userMenu, setUserMenu] = useState(null);
@@ -21,6 +23,7 @@ function AppTopBar() {
     const handleCloseOpenUserMenu = () => {
         setUserMenu(null);
     };
+    const router = useRouter();
 
     // Modal
     const [manualModal, setManualModal] = useState({
@@ -77,7 +80,12 @@ function AppTopBar() {
                             <PersonOutlineOutlinedIcon fontSize="small" /> ข้อมูลส่วนตัว
                         </div>
                     </MenuItem>
-                    <MenuItem onClick={handleCloseOpenUserMenu}>
+                    <MenuItem
+                        onClick={async () => {
+                            await logout();
+                            router.push("/login");
+                        }}
+                    >
                         <div className="flex items-center gap-2 text-sm w-40 py-1">
                             <LogoutOutlinedIcon fontSize="small" /> ออกจากระบบ
                         </div>

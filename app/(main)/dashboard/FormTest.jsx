@@ -1,15 +1,15 @@
 "use client";
 import { useForm } from "react-hook-form";
-import UseTextField from "../components/inputs/UseTextField";
-import UseNumberField from "../components/inputs/UseNumberField";
-import UseSelect from "../components/inputs/UseSelect";
-import UseButton from "../components/inputs/UseButton";
+import UseTextField from "../../components/inputs/UseTextField";
+import UseNumberField from "../../components/inputs/UseNumberField";
+import UseSelect from "../../components/inputs/UseSelect";
+import UseButton from "../../components/inputs/UseButton";
 import { schema } from "./schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import SaveIcon from "@mui/icons-material/Save";
-import { supabase } from "../lib/supabase/client";
 import { useEffect, useState } from "react";
-import UseDataGrid from "../components/utils/UseDataGrid";
+import UseDataGrid from "../../components/utils/UseDataGrid";
+import { supabase } from "@/app/lib/supabase/client";
 
 function FormTest() {
     const [userData, setUserData] = useState([]);
@@ -20,15 +20,15 @@ function FormTest() {
     });
 
     useEffect(() => {
-        // onGetUers();
+        const onGetUers = async () => {
+            const { data, error } = await supabase.from("users").select("*");
+            console.log("error", error);
+            setUserData(data);
+        };
+        onGetUers();
     }, []);
 
-    const onGetUers = async () => {
-        const { data, error } = await supabase.from("users").select("*");
-        setUserData(data);
-    };
-
-    // console.log("userData", userData);
+    console.log("userData", userData);
 
     const onSubmit = (data) => {
         console.log("data submit", data);

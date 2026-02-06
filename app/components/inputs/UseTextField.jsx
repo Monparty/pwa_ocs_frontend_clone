@@ -2,7 +2,7 @@ import { Controller } from "react-hook-form";
 import { TextField } from "@mui/material";
 import UseHelperText from "./UseHelperText";
 
-function UseTextField({ control, label = "", name, disabled = false, required = false }) {
+function UseTextField({ control, label = "", name, disabled = false, required = false, type = "text" }) {
     return (
         <Controller
             name={name}
@@ -12,7 +12,7 @@ function UseTextField({ control, label = "", name, disabled = false, required = 
                     <TextField
                         {...field}
                         label={label}
-                        type="text"
+                        type={type}
                         size="small"
                         className="w-full"
                         disabled={disabled}
