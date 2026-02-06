@@ -11,7 +11,7 @@ function UseSelect({ control, label = "", name, options = [], multiple = false, 
             control={control}
             render={({ field, fieldState: { error } }) => (
                 <div className="grid w-full relative">
-                    <FormControl className="w-full">
+                    <FormControl className="w-full bg-white">
                         <InputLabel id={label} size="small" error={!!error} required={required}>
                             {label}
                         </InputLabel>

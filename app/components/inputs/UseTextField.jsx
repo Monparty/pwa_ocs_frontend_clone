@@ -14,7 +14,7 @@ function UseTextField({ control, label = "", name, disabled = false, required = 
                         label={label}
                         type={type}
                         size="small"
-                        className="w-full"
+                        className="w-full bg-white"
                         disabled={disabled}
                         required={required}
                         error={!!error}

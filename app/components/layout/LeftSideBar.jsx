@@ -15,27 +15,27 @@ function LeftSideBar() {
     const menus = [
         {
             title: "ข้อมูลพื้นฐาน",
-            path: "/",
+            path: "/dashboard",
             icon: <GridViewIcon fontSize="small" />,
         },
         {
             title: "แผน",
-            path: "/",
+            path: "/dashboard",
             icon: <ListAltIcon fontSize="small" />,
         },
         {
             title: "ข้อมูลพื้นฐานกระบวนการผลิต",
-            path: "/",
+            path: "/dashboard",
             icon: <FolderOutlinedIcon fontSize="small" />,
         },
         {
             title: "จัดการเวลาปฏิบัติงาน",
-            path: "/",
+            path: "/dashboard",
             icon: <CalendarMonthOutlinedIcon fontSize="small" />,
         },
         {
             title: "บันทึกผลปฏิบัติงาน(ประจำวัน) Website",
-            path: "/",
+            path: "/dashboard",
             icon: <SaveOutlinedIcon fontSize="small" />,
         },
         {
@@ -45,7 +45,7 @@ function LeftSideBar() {
         },
         {
             title: "Authentication",
-            path: "/",
+            path: "/dashboard",
             icon: <SettingsOutlinedIcon fontSize="small" />,
         },
     ];

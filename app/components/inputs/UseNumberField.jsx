@@ -23,7 +23,7 @@ function UseNumberField({
                         label={label}
                         type="number"
                         size="small"
-                        className="w-full"
+                        className="w-full bg-white"
                         minRows={10}
                         disabled={disabled}
                         required={required}

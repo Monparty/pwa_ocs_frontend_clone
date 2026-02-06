@@ -6,10 +6,12 @@ import UseSelect from "../../components/inputs/UseSelect";
 import UseButton from "../../components/inputs/UseButton";
 import { schema } from "./schema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import SaveIcon from "@mui/icons-material/Save";
 import { useEffect, useState } from "react";
 import UseDataGrid from "../../components/utils/UseDataGrid";
 import { supabase } from "@/app/lib/supabase/client";
+import SearchIcon from '@mui/icons-material/Search';
+import SaveIcon from "@mui/icons-material/Save";
+import Link from "next/link";
 
 function FormTest() {
     const [userData, setUserData] = useState([]);
@@ -88,7 +90,7 @@ function FormTest() {
                             },
                         ]}
                     />
-                    <UseButton type="submit" icon={SaveIcon} label="save" />
+                    <UseButton type="submit" icon={SearchIcon} label="save" />
                 </div>
                 <div className="h-125">
                     <UseDataGrid
@@ -101,6 +103,7 @@ function FormTest() {
                         }}
                     />
                 </div>
+                <Link href={"/MT-100"}>mt-100</Link>
             </form>
         </div>
     );

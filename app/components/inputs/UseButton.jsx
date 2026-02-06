@@ -15,7 +15,7 @@ function UseButton({
 }) {
     return (
         <Button
-            className={`w-full max-w-25 h-fit normal-case! shadow-sm! transition-all! ${color ? color : ""} ${bg ? bg + " hover:opacity-80" : ""}`}
+            className={`w-full max-w-fit h-fit normal-case! shadow-sm! transition-all! ${color ? color : ""} ${bg ? bg + " hover:opacity-80" : ""}`}
             variant={variant}
             startIcon={Icon ? <Icon /> : null}
             onClick={onClick}

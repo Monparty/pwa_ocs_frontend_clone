@@ -29,15 +29,15 @@ export async function middleware(request) {
     const isAuthRoute = pathname.startsWith("/login");
     const isProtectedRoute = pathname.startsWith("/dashboard");
 
-    // ❌ ยังไม่ login แต่จะเข้า dashboard จะเด้งออกมา login
-    if (!user && isProtectedRoute) {
-        return NextResponse.redirect(new URL("/login", request.url));
-    }
+    // // ❌ ยังไม่ login แต่จะเข้า dashboard จะเด้งออกมา login
+    // if (!user && isProtectedRoute) {
+    //     return NextResponse.redirect(new URL("/login", request.url));
+    // }
 
-    // ✅ login แล้ว แต่ยังอยู่หน้า login จะเด้งออกมา dashboard
-    if (user && isAuthRoute) {
-        return NextResponse.redirect(new URL("/dashboard", request.url));
-    }
+    // // ✅ login แล้ว แต่ยังอยู่หน้า login จะเด้งออกมา dashboard
+    // if (user && isAuthRoute) {
+    //     return NextResponse.redirect(new URL("/dashboard", request.url));
+    // }
 
     return response;
 }
