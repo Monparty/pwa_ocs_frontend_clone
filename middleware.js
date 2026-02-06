@@ -23,21 +23,25 @@ export async function middleware(request) {
 
     const { data } = await supabase.auth.getUser();
     const user = data.user;
-
     const pathname = request.nextUrl.pathname;
-
     const isAuthRoute = pathname.startsWith("/login");
     const isProtectedRoute = pathname.startsWith("/dashboard");
+    const isRootRoute = pathname === "/";
 
-    // // ❌ ยังไม่ login แต่จะเข้า dashboard จะเด้งออกมา login
-    // if (!user && isProtectedRoute) {
-    //     return NextResponse.redirect(new URL("/login", request.url));
-    // }
+    // เข้าเว็บครั้งแรก (/) แล้วยังไม่ login → ไป login
+    if (!user && isRootRoute) {
+        return NextResponse.redirect(new URL("/login", request.url));
+    }
 
-    // // ✅ login แล้ว แต่ยังอยู่หน้า login จะเด้งออกมา dashboard
-    // if (user && isAuthRoute) {
-    //     return NextResponse.redirect(new URL("/dashboard", request.url));
-    // }
+    // ยังไม่ login จะเข้า dashboard ไม่ได้
+    if (!user && isProtectedRoute) {
+        return NextResponse.redirect(new URL("/login", request.url));
+    }
+
+    // login แล้วจะเข้า login ไม่ได้
+    if (user && isAuthRoute) {
+        return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
 
     return response;
 }

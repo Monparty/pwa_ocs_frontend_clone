@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -10,8 +11,26 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import { useEffect, useState } from "react";
+import { getMenus } from "../../services/menu.service";
 
 function LeftSideBar() {
+    const [menuList, setMenuList] = useState([]);
+
+    useEffect(() => {
+        const onGetmenu = async () => {
+            const { data, error } = await getMenus();
+            if (error) {
+                alert(error.message);
+                return;
+            }
+            setMenuList(data);
+        };
+        onGetmenu();
+    }, []);
+
+    console.log("menuList", menuList);
+
     const menus = [
         {
             title: "ข้อมูลพื้นฐาน",
@@ -69,13 +88,11 @@ function LeftSideBar() {
                                 <AccordionDetails className="m-0! py-0! rounded-none!">
                                     <div className="flex flex-col gap-1 border-l ms-0.5 border-gray-300 pl-5">
                                         {[1, 2, 3, 4, 5].map((arr) => (
-                                            <>
-                                                <Link key={arr} href={item.path}>
-                                                    <div className="hover:bg-gray-100 text-sm rounded-sm px-2 py-1">
-                                                        menu {arr}
-                                                    </div>
-                                                </Link>
-                                            </>
+                                            <Link key={arr} href={item.path}>
+                                                <div className="hover:bg-gray-100 text-sm rounded-sm px-2 py-1">
+                                                    menu {arr}
+                                                </div>
+                                            </Link>
                                         ))}
                                     </div>
                                 </AccordionDetails>

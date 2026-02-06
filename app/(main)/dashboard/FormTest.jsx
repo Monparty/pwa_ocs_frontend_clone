@@ -8,10 +8,7 @@ import { schema } from "./schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import UseDataGrid from "../../components/utils/UseDataGrid";
-import { supabase } from "@/app/lib/supabase/client";
 import SearchIcon from '@mui/icons-material/Search';
-import SaveIcon from "@mui/icons-material/Save";
-import Link from "next/link";
 
 function FormTest() {
     const [userData, setUserData] = useState([]);
@@ -22,15 +19,10 @@ function FormTest() {
     });
 
     useEffect(() => {
-        const onGetUers = async () => {
-            const { data, error } = await supabase.from("users").select("*");
-            console.log("error", error);
-            setUserData(data);
-        };
-        onGetUers();
+    
     }, []);
 
-    console.log("userData", userData);
+    // console.log("userData", userData);
 
     const onSubmit = (data) => {
         console.log("data submit", data);
@@ -103,7 +95,6 @@ function FormTest() {
                         }}
                     />
                 </div>
-                <Link href={"/MT-100"}>mt-100</Link>
             </form>
         </div>
     );

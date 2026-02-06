@@ -12,18 +12,18 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import UseModal from "../utils/UseModal";
 import { useRouter } from "next/navigation";
-import { logout } from "@/app/lib/auth";
+import { logout } from "../../services/auth.service";
 
 function AppTopBar() {
     const [userMenu, setUserMenu] = useState(null);
     const openUserMenu = Boolean(userMenu);
+    const router = useRouter();
     const handleClickOpenUserMenu = (event) => {
         setUserMenu(event.currentTarget);
     };
     const handleCloseOpenUserMenu = () => {
         setUserMenu(null);
     };
-    const router = useRouter();
 
     // Modal
     const [manualModal, setManualModal] = useState({
@@ -36,6 +36,12 @@ function AppTopBar() {
     };
     const handleCloseManualModal = () => {
         setManualModal((prev) => ({ ...prev, isOpen: false }));
+    };
+
+    // api
+    const handleLogout = async () => {
+        await logout();
+        router.push("/login");
     };
 
     return (
@@ -80,12 +86,7 @@ function AppTopBar() {
                             <PersonOutlineOutlinedIcon fontSize="small" /> ข้อมูลส่วนตัว
                         </div>
                     </MenuItem>
-                    <MenuItem
-                        onClick={async () => {
-                            await logout();
-                            router.push("/login");
-                        }}
-                    >
+                    <MenuItem onClick={handleLogout}>
                         <div className="flex items-center gap-2 text-sm w-40 py-1">
                             <LogoutOutlinedIcon fontSize="small" /> ออกจากระบบ
                         </div>
